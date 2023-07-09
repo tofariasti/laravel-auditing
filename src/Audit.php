@@ -277,6 +277,10 @@ trait Audit
             if ($value instanceof DateTimeInterface) {
                 $modified[$attribute][$state] = !is_null($this->auditable) ? $this->auditable->serializeDate($value) : $this->serializeDate($value);
             }
+            
+            if ($value instanceof \UnitEnum) {
+                $modified[$attribute][$state] = $value->value;
+            }
         }
 
         return $json ? json_encode($modified, $options, $depth) : $modified;
